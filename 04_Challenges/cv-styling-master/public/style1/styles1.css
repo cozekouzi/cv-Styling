@@ -23,6 +23,9 @@
         margin-top: 3%;
      }
     
+
+
+
     section>h3::before{
         content: ' ';
         background-color: #ff0000;
@@ -32,7 +35,8 @@
         display: inline-block;
     
     }
-   
+
+  
     
     .experience-date ,.experience-location{
         color:rgba(0, 0, 255, 0.547);    
