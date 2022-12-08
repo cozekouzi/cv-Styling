@@ -1,6 +1,6 @@
 
 
-var image = document.getElementById("image1");
+var image = document.querySelector("img");
 
 
 image.addEventListener('mouseover', function(){
