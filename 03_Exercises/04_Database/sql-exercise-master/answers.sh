@@ -12,3 +12,18 @@
 
 
 
+CREATE TABLE graduates (
+    ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL UNIQUE,
+	Age INTEGER,
+	Gender TEXT,
+	Points INTEGER,
+	Graduation TEXT
+);
+9.INSERT INTO graduates (ID, name, Age, Gender, Points, Graduation) SELECT *, '08/09/2019' FROM students WHERE name = 'Layal'
+10.INSERT INTO graduates (ID, name, Age, Gender, Points) SELECT * FROM students WHERE name = 'Layal'
+11.UPDATE graduates SET Graduation = '08/09/2019' WHERE name = 'Layal'
+12.DELETE from students WHERE name = 'Layal'
+
+
+
