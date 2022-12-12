@@ -27,3 +27,15 @@ CREATE TABLE graduates (
 
 
 
+14.SELECT employees.Name, employees.Company, companies.Date FROM employees 
+ INNER JOIN companies ON companies.Name = employees.Company
+15.SELECT employees.Name FROM employees 
+  INNER JOIN companies ON companies.Name = employees.Company
+  WHERE companies.Date < 2000
+16.SELECT companies.Name FROM employees 
+ INNER JOIN companies ON companies.Name = employees.Company
+ WHERE employees.Role = 'Graphic Designer'
+
+
+
+
