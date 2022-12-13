@@ -43,4 +43,4 @@ CREATE TABLE graduates (
 19.SELECT avg(Points) FROM students
 20.SELECT count(Name) FROM students WHERE Points = 500
 21.SELECT Name FROM students WHERE Name like '%s%'
-22.SELECT * FROM students ORDER BY Points DESC
+22.SELECT * FROM students ORDER BY Points DESC 
