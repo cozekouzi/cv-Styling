@@ -89,10 +89,10 @@ function quit(){
 */
 function help(){
   console.log('------');
-  console.log('hello');
-  console.log('exit');
-  console.log('quit');
-  console.log('help');
+  console.log('hello:"Says hello"');
+  console.log('exit:"Exits the application"');
+  console.log('quit:"Exits the application"');
+  console.log('help:"Outputs available commands"');
 }
 // The following line starts the application
 startApp("Omar kouzi")
