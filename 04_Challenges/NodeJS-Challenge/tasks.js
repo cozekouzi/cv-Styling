@@ -37,8 +37,8 @@ function onDataReceived(text) {
   if (text === 'quit\n') {
     quit();
   }
-  else if(text === 'hello\n'){
-    hello();
+  else if(text === 'omar\n'){
+    omar();
   }
   else{
     unknownCommand(text);
@@ -63,8 +63,8 @@ function unknownCommand(c){
  *
  * @returns {void}
  */
-function hello(){
-  console.log('hello!')
+function omar(){
+  console.log('hello omar!')
 }
 
 
@@ -79,4 +79,4 @@ function quit(){
 }
 
 // The following line starts the application
-startApp("Jad Sarout")
+startApp("omar")
