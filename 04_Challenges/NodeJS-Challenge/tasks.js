@@ -37,11 +37,15 @@ function onDataReceived(text) {
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
-  else if(text === 'omar\n'){
-    omar();
+  else if(text === 'hello\n'){
+    hello();
   }
-  else{
+  else if(text === 'help\n'){
+    help();
+  }
+  else {
     unknownCommand(text);
+
   }
 }
 
@@ -63,8 +67,8 @@ function unknownCommand(c){
  *
  * @returns {void}
  */
-function omar(){
-  console.log('hello omar!')
+function hello(){
+  console.log('hello!')
 }
 
 
@@ -78,5 +82,17 @@ function quit(){
   process.exit();
 }
 
+/** 
+* Outputs available commands
+* 
+* @return {void}
+*/
+function help(){
+  console.log('------');
+  console.log('hello');
+  console.log('exit');
+  console.log('quit');
+  console.log('help');
+}
 // The following line starts the application
 startApp("Omar kouzi")
