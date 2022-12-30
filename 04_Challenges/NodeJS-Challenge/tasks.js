@@ -34,20 +34,23 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text == 'quit\n') {
+  var mycommand = text.toLowerCase();
+
+  if (mycommand == 'quit\n') {
     quit();
   }
-  else if(text == 'exit\n'){
+  else if(mycommand == 'exit\n'){
     exit();
   }
-  else if(text.substring(0,5) == 'hello'){
+  else if(mycommand.substring(0,5) == 'hello'){
     
-    hello(text.replace("\n","").substring(6));
+    hello(mycommand.replace("\n","").substring(6));
   }
 
-  else if(text == 'help\n'){
+  else if(mycommand == 'help\n'){
     help();
   }
+
   else {
     unknownCommand(text);
 
@@ -114,14 +117,20 @@ function help(){
 startApp("Omar kouzi");
 //help function
 
-//hello argument
+//======= hello argument 30/12/2022 AMK
 function hello(name1,text){
-  if(text == 'hello'){
-    console.log("hello!")
+  //------- remove empty spaces before and after the content then add an initial space as a separaitor from "hello"
+  name1 =" "+ name1.trim();
+  //------- in case of an empty content remove the empty space added above
+  if(name1 == " "){
+    name1="";
   }
-  else{
-    console.log("hello "+name1+"!");
-  }
- 
+  /*other way to compile the above code
+  name1 =name1.trim();
+  if(name1 != ""){
+    name1 = " " + name1}*/
+  
+  console.log("hello"+name1+"!");
+  
   console.log("--------------------");
 }
