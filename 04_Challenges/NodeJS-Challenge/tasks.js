@@ -13,8 +13,8 @@ function startApp(name){
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', onDataReceived);
-  console.log(`Welcome to ${name}'s application!`)
-  console.log("--------------------")
+  console.log(`Welcome to ${name}'s application!`);
+  console.log("--------------------");
 }
 
 
@@ -34,13 +34,18 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === 'quit\n' || text === 'exit\n') {
+  if (text == 'quit\n') {
     quit();
   }
-  else if(text === 'hello\n'){
-    hello();
+  else if(text == 'exit\n'){
+    exit();
   }
-  else if(text === 'help\n'){
+  else if(text.substring(0,5) == 'hello'){
+    
+    hello(text.replace("\n","").substring(6));
+  }
+
+  else if(text == 'help\n'){
     help();
   }
   else {
@@ -67,10 +72,12 @@ function unknownCommand(c){
  *
  * @returns {void}
  */
-function hello(input){
-  
-  console.log('hello '+input+'!');
+
+function hello(){
+  console.log('hello!');
+  console.log("--------");
 }
+
 
 
 /**
@@ -80,20 +87,41 @@ function hello(input){
  */
 function quit(){
   console.log('Quitting now, goodbye!');
+  console.log("-----------------------");
+  process.exit();
+}
+/**
+ * Exits the application
+ *
+ * @returns {void}
+ */
+ function exit(){
+  console.log('Quitting now, goodbye!');
+  console.log("-----------------------");
   process.exit();
 }
 
-/** 
-* Outputs available commands
-* 
-* @return {void}
-*/
 function help(){
   console.log('------');
-  console.log('hello:"Says hello"');
+  console.log('hello:"Says hello plus the extra text the user inputs"');
   console.log('exit:"Exits the application"');
   console.log('quit:"Exits the application"');
   console.log('help:"Outputs available commands"');
+  console.log("----------------------------------");
+
 }
 // The following line starts the application
 startApp("Omar kouzi");
+//help function
+
+//hello argument
+function hello(name1,text){
+  if(text == 'hello'){
+    console.log("hello!")
+  }
+  else{
+    console.log("hello "+name1+"!");
+  }
+ 
+  console.log("--------------------");
+}
