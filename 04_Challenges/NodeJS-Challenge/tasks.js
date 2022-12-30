@@ -52,13 +52,13 @@ function onDataReceived(text) {
 
 /**
  * prints "unknown command"
- * This function is supposed to run when all other commands have failed
+ * This function is supposed to run when all other commands have failed;
  *
  * @param  {string} c the text received
  * @returns {void}
  */
 function unknownCommand(c){
-  console.log('unknown command: "'+c.trim()+'"')
+  console.log('unknown command: "'+c.trim()+'"');
 }
 
 
@@ -67,8 +67,9 @@ function unknownCommand(c){
  *
  * @returns {void}
  */
-function hello(){
-  console.log('hello!')
+function hello(input){
+  
+  console.log('hello '+input+'!');
 }
 
 
@@ -78,7 +79,7 @@ function hello(){
  * @returns {void}
  */
 function quit(){
-  console.log('Quitting now, goodbye!')
+  console.log('Quitting now, goodbye!');
   process.exit();
 }
 
@@ -95,4 +96,4 @@ function help(){
   console.log('help:"Outputs available commands"');
 }
 // The following line starts the application
-startApp("Omar kouzi")
+startApp("Omar kouzi");
