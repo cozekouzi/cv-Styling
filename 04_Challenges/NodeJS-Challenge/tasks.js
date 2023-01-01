@@ -15,6 +15,7 @@ function startApp(name){
   process.stdin.on('data', onDataReceived);
   console.log(`Welcome to ${name}'s application!`);
   console.log("--------------------");
+  help();//so the user knows what this app do
 }
 
 
@@ -34,22 +35,34 @@ function startApp(name){
  * @returns {void}
  */
 function onDataReceived(text) {
+  //turn input to lowercase letters so that no error ocure if upper case letters appear
   var mycommand = text.toLowerCase();
 
-  if (mycommand == 'quit\n') {
+  if (0 == mycommand.indexOf('quit\n')) {
     quit();
   }
-  else if(mycommand == 'exit\n'){
+  else if(0 == mycommand.indexOf('exit\n')){
     exit();
   }
-  else if(mycommand.substring(0,5) == 'hello'){
-    
-    hello(mycommand.replace("\n","").substring(6));
+  else if(0 == mycommand.indexOf('hello')){
+   // hello();
+    hello(text.replace('\n','').substring(6));
   }
 
-  else if(mycommand == 'help\n'){
+  else if(0 == mycommand.indexOf('help\n')){
+    console.log('------');
     help();
+  } 
+  else if(0 == mycommand.indexOf('add')){
+    add(text.replace('\n','').substring(3));
+  } 
+  else if(0 == mycommand.indexOf('list\n')){
+    list();
   }
+  else if(0 == mycommand.indexOf('remove\n')){
+    remove(text.replace('\n','').substring(6));
+  }
+
 
   else {
     unknownCommand(text);
@@ -76,10 +89,10 @@ function unknownCommand(c){
  * @returns {void}
  */
 
-function hello(){
+/*function hello(){
   console.log('hello!');
   console.log("--------");
-}
+}*/
 
 
 
@@ -90,7 +103,7 @@ function hello(){
  */
 function quit(){
   console.log('Quitting now, goodbye!');
-  console.log("-----------------------");
+  console.log('-----------------------');
   process.exit();
 }
 /**
@@ -100,25 +113,24 @@ function quit(){
  */
  function exit(){
   console.log('Quitting now, goodbye!');
-  console.log("-----------------------");
+  console.log('-----------------------');
   process.exit();
 }
 
 function help(){
-  console.log('------');
   console.log('hello:"Says hello plus the extra text the user inputs"');
   console.log('exit:"Exits the application"');
   console.log('quit:"Exits the application"');
   console.log('help:"Outputs available commands"');
-  console.log("----------------------------------");
+  console.log('----------------------------------');
 
 }
 // The following line starts the application
 startApp("Omar kouzi");
 //help function
 
-//======= hello argument 30/12/2022 AMK
-function hello(name1,text){
+//======= hello function
+function hello(name1){
   //------- remove empty spaces before and after the content then add an initial space as a separaitor from "hello"
   name1 =" "+ name1.trim();
   //------- in case of an empty content remove the empty space added above
@@ -130,7 +142,29 @@ function hello(name1,text){
   if(name1 != ""){
     name1 = " " + name1}*/
   
-  console.log("hello"+name1+"!");
+  console.log('hello'+name1+'!');
   
-  console.log("--------------------");
+  console.log('--------------------');
 }
+
+const mylist = [];
+function list(){
+console.log('My List\n'+'--------');
+
+mylist.forEach((task, i)=>{
+  console.log('['+`${i+1}`+'] '+task);
+});
+}
+function add(newtask){
+  newtask = newtask.trim();
+  mylist.push(newtask);
+  console.log(`${newtask} was added to your list`)
+  console.log('----------------------------')
+}
+
+
+
+
+
+
+
