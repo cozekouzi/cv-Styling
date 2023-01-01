@@ -149,7 +149,7 @@ function hello(name1){
   console.log('--------------------');
 }
 
-const mylist = [];
+const mylist = ["aks","ins","osa","asoa"];
 function list(){
 console.log('My List\n'+'--------');
 
@@ -163,10 +163,9 @@ function add(newtask){
   console.log(`${newtask} was added to your list`);
   console.log('----------------------------');
 }
-function remove(task,i){
-  task = task.trim();
-  task = i+1;
-  mylist.splice(task);
+function remove(i){
+  mylist.splice(i);
+  list()
 }
 
 
