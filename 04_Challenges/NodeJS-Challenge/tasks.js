@@ -38,10 +38,10 @@ function onDataReceived(text) {
   //turn input to lowercase letters so that no error ocure if upper case letters appear
   var mycommand = text.toLowerCase();
 
-  if (0 == mycommand.indexOf('quit\n')) {
+  if (0 == mycommand.indexOf('quit')) {
     quit();
   }
-  else if(0 == mycommand.indexOf('exit\n')){
+  else if(0 == mycommand.indexOf('exit')){
     exit();
   }
   else if(0 == mycommand.indexOf('hello')){
@@ -49,17 +49,17 @@ function onDataReceived(text) {
     hello(text.replace('\n','').substring(6));
   }
 
-  else if(0 == mycommand.indexOf('help\n')){
+  else if(0 == mycommand.indexOf('help')){
     console.log('------');
     help();
   } 
   else if(0 == mycommand.indexOf('add')){
     add(text.replace('\n','').substring(3));
   } 
-  else if(0 == mycommand.indexOf('list\n')){
+  else if(0 == mycommand.indexOf('list')){
     list();
   }
-  else if(0 == mycommand.indexOf('remove\n')){
+  else if(0 == mycommand.indexOf('remove')){
     remove(text.replace('\n','').substring(6));
   }
 
@@ -112,30 +112,32 @@ function quit(){
  * @returns {void}
  */
  function exit(){
-  console.log('Quitting now, goodbye!');
+  console.log('Exitting now, goodbye!');
   console.log('-----------------------');
   process.exit();
 }
-
+//help functions outputs all commands available for the user and the role of each one
 function help(){
-  console.log('hello:"Says hello plus the extra text the user inputs"');
-  console.log('exit:"Exits the application"');
-  console.log('quit:"Exits the application"');
-  console.log('help:"Outputs available commands"');
+  console.log('add:"Adds a task to My list."');
+  console.log('exit:"Exits the application."');
+  console.log('hello:"Says hello plus the extra text the user inputs."');
+  console.log('help:"Outputs all commands available for the user and the role of each one."');
+  console.log('list:"List my tasks."');
+  console.log('quit:"Exits the application."');
+  console.log('remove:"Removes a certain task from My list."')
   console.log('----------------------------------');
-
 }
 // The following line starts the application
-startApp("Omar kouzi");
+startApp('Omar kouzi');
 //help function
 
 //======= hello function
 function hello(name1){
   //------- remove empty spaces before and after the content then add an initial space as a separaitor from "hello"
-  name1 =" "+ name1.trim();
+  name1 =' '+ name1.trim();
   //------- in case of an empty content remove the empty space added above
-  if(name1 == " "){
-    name1="";
+  if(name1 == ' '){
+    name1='';
   }
   /*other way to compile the above code
   name1 =name1.trim();
@@ -158,8 +160,13 @@ mylist.forEach((task, i)=>{
 function add(newtask){
   newtask = newtask.trim();
   mylist.push(newtask);
-  console.log(`${newtask} was added to your list`)
-  console.log('----------------------------')
+  console.log(`${newtask} was added to your list`);
+  console.log('----------------------------');
+}
+function remove(task,i){
+  task = task.trim();
+  task = i+1;
+  mylist.splice(task);
 }
 
 
