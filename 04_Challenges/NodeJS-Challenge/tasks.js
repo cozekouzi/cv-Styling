@@ -1,5 +1,5 @@
 //*global variables
-const mylist = [];//! dummy list delete content when finnish
+const mylist = [];
 
 /**
  * Starts the application
@@ -19,7 +19,6 @@ function startApp(name){
   console.log("--------------------");
   //*------- so the user knows what this app do
   help();
-  pushdummytomylist();
 }
 
 
@@ -151,27 +150,19 @@ function hello(name1){
 //*****************************************************************
 
 
+
 //*======= list function
-function pushdummytomylist(){
-  add("abed",false);
-  add("omar",true);
-  add("mgo",false);
-  add("hicup",false);
-}
-
-
-
 function list(status){
-console.log('My List\n'+'--------');
-mylist.forEach((task, i)=>{
-  var d = isdone(i);
-  if (d==false && status == 'undone'){
-    log_atasklist(task,i);
-  }
-  else if(status == ''){
-    log_atasklist(task,i);
-  }
-});
+  console.log('My List\n'+'--------');
+  mylist.forEach((task, i)=>{
+    var d = done(i);
+    if (d==false && status == 'undone'){
+      log_atasklist(task,i);
+    }
+    else if(status == ''){
+      log_atasklist(task,i);
+    }
+  });
 }
 //*======= add function
 function add(newtask,status){
@@ -223,12 +214,14 @@ function edit(text) {
  
   }
 }
-
+//*======= check function
 function check(i,status){
+//*------- if task isn't found output error
   if(i > mylist.length || i == ''){
     console.log("Error!!");
     return;
   }
+//*------ link to check function  
   else{
    check_atasklist(i-1,status);
     list();
@@ -240,9 +233,9 @@ function check(i,status){
 //******* task list manegment
 //*****************************************************************
 
-
+//*------- add function
 function add_atasklist(task,status){
- 
+//*------- add checkbox for if it's checked or not
   if (status == true){
     task = "[✓] " + task;
   }
@@ -251,7 +244,9 @@ function add_atasklist(task,status){
   }
   mylist.push(task);
 }
+//*======= editing function
 function edit_atasklist(i,task,status){
+//*------- editing the checkbox
   if (status == true){
     task = "[✓] " + task;
   }
@@ -260,17 +255,18 @@ function edit_atasklist(i,task,status){
   }
   mylist[i] = task;
 }
+//*======= remove function
 function remove_atasklist(i){
   mylist.splice(i,1);
 }
+//*======= logging the tasks of the list
 function log_atasklist(task,i){
   console.log(`${i+1}`+' - '+task);
 }
 
-
-
-
+//*======= check/uncheck function
 function check_atasklist(i,status){
+//*targetting the task so when we want to edit the checkbox won't duplicate it will replace it
   var task = mylist[i].substring(4);
   if (status == true){
     task = "[✓] " + task;
@@ -280,8 +276,8 @@ function check_atasklist(i,status){
   }
   mylist[i] = task;
 }
-
-function isdone(i){
+//* extra function done this function outputs the un-finished tasks
+function done(i){
   
   var task = mylist[i]
   if (task.indexOf("[✓] ") == 0){
