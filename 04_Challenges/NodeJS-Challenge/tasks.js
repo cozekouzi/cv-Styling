@@ -36,40 +36,27 @@ function startApp(name){
  */
 function onDataReceived(text) {
   //turn input to lowercase letters so that no error ocure if upper case letters appear
-  var mycommand = text.toLowerCase();
+ 
+  // get commands and params
+  text=text.replace('\n','');
+  var i = text.indexOf(' ');
+  if (i==-1) i=text.length;
+  var mycommand = text.substring(0,i).toLowerCase();
+  var myparams = text.substring(i+1);
 
-  if (0 == mycommand.indexOf('quit')) {
-    quit();
-  }
-  else if(0 == mycommand.indexOf('exit')){
-    exit();
-  }
-  else if(0 == mycommand.indexOf('hello')){
-   // hello();
-    hello(text.replace('\n','').substring(6));
-  }
-
-  else if(0 == mycommand.indexOf('help')){
-    console.log('------');
-    help();
-  } 
-  else if(0 == mycommand.indexOf('add')){
-    add(text.replace('\n','').substring(3));
-  } 
-  else if(0 == mycommand.indexOf('list')){
-    list();
-  }
-  else if(0 == mycommand.indexOf('remove')){
-    remove(text.replace('\n','').substring(6));
-  }
-
-
+  //dispature
+  if (mycommand == 'quit') quit();
+  else if(mycommand == 'exit') exit();
+  else if(mycommand == 'hello') hello(myparams);
+  else if(mycommand == 'help') help(); 
+  else if(mycommand == 'add') add(myparams);
+  else if(mycommand == 'list') list();
+  else if(mycommand == 'remove') remove(myparams);
+  else  if (mycommand == 'edit') edit(myparams);
   else {
     unknownCommand(text);
-
   }
 }
-
 
 /**
  * prints "unknown command"
@@ -102,6 +89,7 @@ function unknownCommand(c){
  * @returns {void}
  */
 function quit(){
+  console.log('----')
   console.log('Quitting now, goodbye!');
   console.log('-----------------------');
   process.exit();
@@ -112,12 +100,14 @@ function quit(){
  * @returns {void}
  */
  function exit(){
+  console.log('----')
   console.log('Exitting now, goodbye!');
   console.log('-----------------------');
   process.exit();
 }
 //help functions outputs all commands available for the user and the role of each one
 function help(){
+  console.log('----')
   console.log('add:"Adds a task to My list."');
   console.log('exit:"Exits the application."');
   console.log('hello:"Says hello plus the extra text the user inputs."');
@@ -149,23 +139,69 @@ function hello(name1){
   console.log('--------------------');
 }
 
+//******************************************************************
+//*****************************************************************
+//******* task manegment
+//*****************************************************************
+
+
+// list function
 const mylist = ["aks","ins","osa","asoa"];
 function list(){
 console.log('My List\n'+'--------');
-
 mylist.forEach((task, i)=>{
-  console.log('['+`${i+1}`+'] '+task);
+  console.log(`${i+1}`+' - '+task);
 });
 }
+// add function
 function add(newtask){
   newtask = newtask.trim();
+  if (newtask == '')
+  {
+    console.log('no task to add.')
+  } 
+ else{
   mylist.push(newtask);
   console.log(`${newtask} was added to your list`);
+ }
   console.log('----------------------------');
+
 }
+// remove function
 function remove(i){
-  mylist.splice(i);
-  list()
+  if(i > mylist.length){
+    console.log("Can't remove task :'task not found'")
+  }
+  else{
+ //remove element at index at i-1 hence it's zero based
+ mylist.splice(i-1,1);
+ //called for businuss presentation
+ list();
+  }
+ 
+}
+
+//edit function
+function edit(text) {
+  if(text == ''){
+    console.log('error!!');
+    return;
+  }
+  var i = text.indexOf(' ');
+  if (i==-1) {
+    var task_numb = mylist.length;
+    var edited_task = text ;
+    mylist[task_numb-1] = edited_task;
+   }
+  else{
+    var task_numb = text.substring(0,i).toLowerCase();
+    var edited_task = text.substring(i+1); 
+    mylist[task_numb-1] = edited_task;
+ 
+  }
+   
+ 
+  
 }
 
 
