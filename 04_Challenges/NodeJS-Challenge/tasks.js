@@ -54,7 +54,7 @@ function onDataReceived(text) {
   else if(mycommand == 'hello') hello(myparams);
   else if(mycommand == 'help') help(); 
   else if(mycommand == 'add') add(myparams);
-  else if(mycommand == 'list') list();
+  else if(mycommand == 'list') list(myparams);
   else if(mycommand == 'remove') remove(myparams);
   else if(mycommand == 'edit') edit(myparams);
   else if(mycommand == 'check') check(myparams,true);
@@ -161,10 +161,16 @@ function pushdummytomylist(){
 
 
 
-function list(){
+function list(status){
 console.log('My List\n'+'--------');
 mylist.forEach((task, i)=>{
-log_atasklist(task,i)
+  var d = isdone(i);
+  if (d==false && status == 'undone'){
+    log_atasklist(task,i);
+  }
+  else if(status == ''){
+    log_atasklist(task,i);
+  }
 });
 }
 //*======= add function
@@ -208,7 +214,7 @@ function edit(text) {
     var task_numb = mylist.length;
     var edited_task = text ;
     edit_atasklist(task_numb-1,edited_task,false);
-   }
+  }
    //*------- editing specefice task
   else{
     var task_numb = text.substring(0,i).toLowerCase();
@@ -260,9 +266,10 @@ function remove_atasklist(i){
 function log_atasklist(task,i){
   console.log(`${i+1}`+' - '+task);
 }
-function isdone(){
 
-}
+
+
+
 function check_atasklist(i,status){
   var task = mylist[i].substring(4);
   if (status == true){
@@ -274,5 +281,14 @@ function check_atasklist(i,status){
   mylist[i] = task;
 }
 
-
+function isdone(i){
+  
+  var task = mylist[i]
+  if (task.indexOf("[✓] ") == 0){
+    return true;
+  }
+  if (task.indexOf("[ ] ") == 0){
+    return false;
+  }
+}
 
