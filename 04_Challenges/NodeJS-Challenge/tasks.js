@@ -56,7 +56,9 @@ function onDataReceived(text) {
   else if(mycommand == 'add') add(myparams);
   else if(mycommand == 'list') list();
   else if(mycommand == 'remove') remove(myparams);
-  else  if (mycommand == 'edit') edit(myparams);
+  else if(mycommand == 'edit') edit(myparams);
+  else if(mycommand == 'check') check(myparams,true);
+  else if(mycommand == 'uncheck') check(myparams,false);
   else {
     unknownCommand(text);
   }
@@ -216,6 +218,16 @@ function edit(text) {
   }
 }
 
+function check(i,status){
+  if(i > mylist.length || i == ''){
+    console.log("Error!!");
+    return;
+  }
+  else{
+   check_atasklist(i-1,status);
+    list();
+  }
+}
 
 //******************************************************************
 //*****************************************************************
@@ -247,12 +259,20 @@ function remove_atasklist(i){
 }
 function log_atasklist(task,i){
   console.log(`${i+1}`+' - '+task);
-
 }
 function isdone(){
 
 }
-
+function check_atasklist(i,status){
+  var task = mylist[i].substring(4);
+  if (status == true){
+    task = "[✓] " + task;
+  }
+  else{
+    task = "[ ] " + task;
+  }
+  mylist[i] = task;
+}
 
 
 
