@@ -1,6 +1,6 @@
 //*global variables
-const mylist = [];
-
+const fs = require('fs');
+var mylist = [];
 /**
  * Starts the application
  * This is the function that is run when the app starts
@@ -19,6 +19,7 @@ function startApp(name){
   console.log("--------------------");
   //*------- so the user knows what this app do
   help();
+  erase();
 }
 
 
@@ -58,9 +59,12 @@ function onDataReceived(text) {
   else if(mycommand == 'edit') edit(myparams);
   else if(mycommand == 'check') check(myparams,true);
   else if(mycommand == 'uncheck') check(myparams,false);
+  else if (mycommand == 'save') savemytasks();
+  else if (mycommand == 'load') loadmytasks();
   else {
     unknownCommand(text);
   }
+  
 }
 
 /**
@@ -151,6 +155,22 @@ function hello(name1){
 
 
 
+
+function erase(){
+  add("abed",true);
+  add("jjj",false);
+  add("lja",false);
+  add("ba",false);
+  add("na",false);
+  
+}
+
+
+
+
+
+
+
 //*======= list function
 function list(status){
   console.log('My List\n'+'--------');
@@ -224,7 +244,7 @@ function check(i,status){
 //*------ link to check function  
   else{
    check_atasklist(i-1,status);
-    list();
+  
   }
 }
 
@@ -288,3 +308,23 @@ function done(i){
   }
 }
 
+//******************************************************************
+//*****************************************************************
+//******* data base manegment
+//*****************************************************************
+
+
+function loadmytasks(){
+var data = fs.readFileSync("./database.json");
+var d= JSON.parse(data);
+mylist=new Array();
+mylist=mylist.concat(d);
+console.log(mylist);
+
+}
+
+function savemytasks(){
+  var data = JSON.stringify(mylist);
+  fs.writeFileSync("./database.json",data);
+  console.log(data);
+}
