@@ -1,5 +1,6 @@
 //*global variables
 const fs = require('fs');
+const { stringify } = require('querystring');
 var mylist = [];
 /**
  * Starts the application
@@ -19,7 +20,7 @@ function startApp(name){
   console.log("--------------------");
   //*------- so the user knows what this app do
   help();
-  erase();
+//  erase();
 }
 
 
@@ -59,8 +60,8 @@ function onDataReceived(text) {
   else if(mycommand == 'edit') edit(myparams);
   else if(mycommand == 'check') check(myparams,true);
   else if(mycommand == 'uncheck') check(myparams,false);
-  else if (mycommand == 'save') savemytasks();
-  else if (mycommand == 'load') loadmytasks();
+  else if(mycommand == 'save') savemytasks();
+  else if(mycommand == 'load') loadmytasks();
   else {
     unknownCommand(text);
   }
@@ -123,7 +124,9 @@ function help(){
   console.log('hello:"Says hello plus the extra text the user inputs."');
   console.log('help:"Outputs all commands available for the user and the role of each one."');
   console.log('list:"List my tasks."');
+  console.log('load:"Loads the list you saved before quiting the app."')
   console.log('quit:"Exits the application."');
+  console.log('save:"Save your changes on a list."')
   console.log('remove:"Removes a certain task from My list."')
   console.log('----------------------------------');
 }
@@ -155,15 +158,14 @@ function hello(name1){
 
 
 
-
-function erase(){
+/*function erase(){
   add("abed",true);
-  add("jjj",false);
-  add("lja",false);
-  add("ba",false);
-  add("na",false);
+  add("omar",false);
+  add("jojo",false);
+  add("ali",false);
+  add("mgo",false);
   
-}
+}*/
 
 
 
@@ -207,7 +209,6 @@ function remove(i){
  //*------- remove element at index at i-1 hence it's zero based
  remove_atasklist(i-1);
  //*------- called for businuss presentation
- list();
   }
  
 }
@@ -317,7 +318,6 @@ function done(i){
 function loadmytasks(){
 var data = fs.readFileSync("./database.json");
 var d= JSON.parse(data);
-mylist=new Array();
 mylist=mylist.concat(d);
 console.log(mylist);
 
@@ -328,3 +328,30 @@ function savemytasks(){
   fs.writeFileSync("./database.json",data);
   console.log(data);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
