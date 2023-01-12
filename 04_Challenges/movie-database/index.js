@@ -5,6 +5,12 @@ const port = 4000
 const date = new Date()
 const hour = date.getHours()
 const minuts = date.getMinutes()
+const movies = [
+  { title: 'Jaws', year: 1975, rating: 8 },
+  { title: 'Avatar', year: 2009, rating: 7.8 },
+  { title: 'Brazil', year: 1985, rating: 8 },
+  { title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
+]
 
 app.get('/hello/:id?', function(req, res){
   const idd = req.params.id;
@@ -29,7 +35,24 @@ app.get('/search',(req,res) => {
   else{
     res.send({status:500, error:true, message:"you have to provide a search"})
   }
-});
+})
+
+
+app.get('/movies/create', function (req, res){
+  res.send({status:200, message:"creat"})
+})
+app.get('/movies/read', function (req, res){
+  res.send({status:200, message:movies.map(movies => movies.title)})
+})
+app.get('/movies/update', function (req, res){
+  res.send({status:200, message:"update"})
+})
+app.get('/movies/delete', function (req, res){
+  res.send({status:200, message:"delete"})
+})
+
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)  
 })
