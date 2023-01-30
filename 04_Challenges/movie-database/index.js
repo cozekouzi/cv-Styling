@@ -3,29 +3,28 @@
 const { request } = require('express')
 const express = require('express')
 const app = express()
-//!------- use 4000 due to unknown error (pending)
-const port = 4000
+const port = 3000
 //*------- time elements
 const date = new Date()
 const hour = date.getHours()
 const minuts = date.getMinutes()
 //*------- movies elements
 const movies = [
-  { title: 'Jaws', year: 1975, rating: 8 },
-  { title: 'Avatar', year: 2009, rating: 7.8 },
-  { title: 'Brazil', year: 1985, rating: 8 },
-  { title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
+  { id :1, title: 'Jaws', year: 1975, rating: 8 },
+  { id :2, title: 'Avatar', year: 2009, rating: 7.8 },
+  { id :3, title: 'Brazil', year: 1985, rating: 8 },
+  { id :4, title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
 ]
-//*======= opening a file to exicute "hello + 'the input of a user'" when url ="http://localhost:4000/hello/omar"
+//*======= opening a file to exicute "hello + 'the input of a user'" when url ="http://localhost:3000/hello/omar"
 app.get('/hello/:id?', function(req, res){
   const idd = req.params.id;
   res.send({status:200, message:`hello, ${idd}`});
 });
-//*======= opening a test file outputing ok when url ="http://localhost:4000/test"
+//*======= opening a test file outputing ok when url ="http://localhost:3000/test"
 app.get('/test', function (req, res){
   res.send({status:200, message:"ok"})
 })
-//*======= openig a file outputing the current time() when url ="http://localhost:4000/time"
+//*======= openig a file outputing the current time() when url ="http://localhost:3000/time"
 app.get('/time', function (req, res){
   if(minuts > 10){
     res.send({status:200, message:`${hour + ":"+minuts}`})
@@ -34,7 +33,7 @@ app.get('/time', function (req, res){
     res.send({status:200, message:`${hour + ":0"+minuts}`})
   }
 })
-//*======= search file when url= "http://localhost:4000/search?s='add-your-input'"
+//*======= search file when url= "http://localhost:3000/search?s='add-your-input'"
 app.get('/search',(req,res) => {
   const s=req.query.s
   if (s) {
@@ -71,7 +70,7 @@ app.get('/movies/read', function (req, res){
 
 
 
-//*======= sorting by-date when url="http://localhost:4000/movies/read/by-date"
+//*======= sorting by-date when url="http://localhost:3000/movies/read/by-date"
 app.get('/movies/read/by-date', function (req, res){
 
   var byDate = movies.slice(0);
@@ -81,27 +80,38 @@ byDate.sort(function(a,b) {
 res.json({status:200, message:byDate})
 })
 
-//*======= sorting by-date when url="http://localhost:4000/movies/read/by-rate"
+//*======= sorting by-date when url="http://localhost:3000/movies/read/by-rate"
 app.get('/movies/read/by-rate', function (req, res){
   var byRate = movies.slice(0);
   byRate.sort(function(a,b) {
       return a.rating - b.rating;
   });
   res.json({status:200, message:byRate})
-})
+})          
 
-//*======= sorting by-title when url="http://localhost:4000/movies/read/by-title"
+//*======= sorting by-title when url="http://localhost:3000/movies/read/by-title"
 app.get('/movies/read/by-title', function (req, res){
   var byTitle = movies.slice(0);
   byTitle.sort(function(a,b) {
       var x = a.title.toLowerCase();
       var y = b.title.toLowerCase();
-      return x < y ? -1 : x > y ? 1 : 0;
+      return x < y ? -1 : x > y ? 1 : 0;//?(?=>if && :=>else)(x<y) {return false} else if(x>y){return true} else {return}
   });
   res.json({status:200, message:byTitle})
 })
 
 
+//*   
+app.get('/movies/read/:id',(req,res) => {
+  
+  const id = parseInt(req.params.id, 10);
+  const movie = movies.filter((m) => m.id === id);
+  if (id) {
+    res.json({ status: 200, data: movie });
+  } else if(id > movie.id) {
+    res.status(404).json({ status: 404, error: true, message: `the movie ${id} does not exist` });
+  }
+})
 
 
 
